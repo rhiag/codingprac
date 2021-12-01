@@ -18,20 +18,4 @@ import pandas as pd
 
 # Start writing code
 ms_employee_salary.head()
-print(ms_employee_salary.shape)
-
-#finding max salary
-max_sal =ms_employee_salary.groupby('id').agg({'salary':'max'})
-max_sal
-print("Max Sal:",max_sal.shape)
-
-#dropping duplicates
-newdf = ms_employee_salary.drop_duplicates(
-    subset = ['id', 'first_name','last_name','department_id'],
-  keep = 'last').reset_index(drop = True)
-print("New DF:",newdf.shape)
-
-# assigning the max salary
-newdf['salary'] = max_sal
-
-newdf.head()
+ms_employee_salary.groupby(['id','first_name','last_name','department_id'])['salary'].max().reset_index()
